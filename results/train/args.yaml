@@ -1,6 +1,6 @@
 task: detect
 mode: train
-model: yolov8n.pt
+model: C:\Users\pdcob\UDC\CUARTO\SEGUNDO_CUATRI\BIOINFO\SKIN_HFJGPC\results\train\weights\last.pt
 data: C:\Users\pdcob\UDC\CUARTO\SEGUNDO_CUATRI\BIOINFO\SKIN_HFJGPC\data\yolo_dataset\dataset.yaml
 epochs: 50
 time: null
@@ -11,7 +11,7 @@ save: true
 save_period: -1
 cache: false
 device: cpu
-workers: 4
+workers: 0
 project: C:\Users\pdcob\UDC\CUARTO\SEGUNDO_CUATRI\BIOINFO\SKIN_HFJGPC\results
 name: train
 exist_ok: true
@@ -24,7 +24,7 @@ single_cls: false
 rect: false
 cos_lr: false
 close_mosaic: 10
-resume: false
+resume: C:\Users\pdcob\UDC\CUARTO\SEGUNDO_CUATRI\BIOINFO\SKIN_HFJGPC\results\train\weights\last.pt
 amp: true
 fraction: 1.0
 profile: false
@@ -77,7 +77,7 @@ momentum: 0.937
 weight_decay: 0.0005
 warmup_epochs: 3.0
 warmup_momentum: 0.8
-warmup_bias_lr: 0.1
+warmup_bias_lr: 0.0
 box: 7.5
 cls: 0.5
 cls_pw: 0.0
