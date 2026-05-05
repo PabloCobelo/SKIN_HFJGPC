@@ -7,7 +7,7 @@ Generates:
   results/eval/per_class_metrics.csv
 
 Run:
-    python scripts/evaluate.py
+    python ml/scripts/evaluate.py
 """
 
 import json
@@ -24,10 +24,11 @@ from sklearn.metrics import (
 )
 from ultralytics import YOLO
 
-BASE_DIR    = Path(__file__).resolve().parents[1]
-MODEL_PATH  = BASE_DIR / "models" / "best.pt"
-DATASET_CFG = BASE_DIR / "data" / "yolo_dataset" / "dataset.yaml"
-EVAL_DIR    = BASE_DIR / "results" / "eval"
+ML_DIR      = Path(__file__).resolve().parents[1]   # ml/
+ROOT_DIR    = ML_DIR.parent                          # project root
+MODEL_PATH  = ROOT_DIR / "backend" / "models" / "best.pt"
+DATASET_CFG = ML_DIR / "data" / "yolo_dataset" / "dataset.yaml"
+EVAL_DIR    = ML_DIR / "results" / "eval"
 
 CLASSES = ["akiec", "bcc", "bkl", "df", "mel", "nv", "vasc"]
 
@@ -110,8 +111,8 @@ def main():
 
     model = YOLO(str(MODEL_PATH))
 
-    val_img_dir = BASE_DIR / "data" / "yolo_dataset" / "images" / "val"
-    val_lbl_dir = BASE_DIR / "data" / "yolo_dataset" / "labels" / "val"
+    val_img_dir = ML_DIR / "data" / "yolo_dataset" / "images" / "val"
+    val_lbl_dir = ML_DIR / "data" / "yolo_dataset" / "labels" / "val"
 
     print("Running inference on validation set…")
     y_true, y_pred = collect_predictions(model, val_img_dir, val_lbl_dir)

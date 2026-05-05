@@ -1,14 +1,14 @@
 """
 Converts HAM10000 dataset to YOLO format.
 
-Actual structure under data/ham1000/:
+Actual structure under ml/data/ham1000/:
   HAM10000_metadata              (CSV, no extension)
   HAM10000_images_part_1/        (ISIC_*.jpg)
   HAM10000_images_part_2/        (ISIC_*.jpg)
   HAM10000_segmentations_lesion_tschandl/
     HAM10000_segmentations_lesion_tschandl/   (ISIC_*_segmentation.png)
 
-Output under data/yolo_dataset/:
+Output under ml/data/yolo_dataset/:
   images/train/, images/val/
   labels/train/, labels/val/
   dataset.yaml
@@ -22,8 +22,8 @@ from tqdm import tqdm
 import yaml
 
 # ── config ────────────────────────────────────────────────────────────────────
-BASE_DIR     = Path(__file__).resolve().parents[1]
-HAM_DIR      = BASE_DIR / "data" / "ham1000"
+ML_DIR       = Path(__file__).resolve().parents[1]   # ml/
+HAM_DIR      = ML_DIR / "data" / "ham1000"
 IMG_DIRS     = [
     HAM_DIR / "HAM10000_images_part_1",
     HAM_DIR / "HAM10000_images_part_2",
@@ -31,7 +31,7 @@ IMG_DIRS     = [
 SEG_DIR      = (HAM_DIR / "HAM10000_segmentations_lesion_tschandl"
                         / "HAM10000_segmentations_lesion_tschandl")
 META_CSV     = HAM_DIR / "HAM10000_metadata"   # no .csv extension
-OUT_DIR      = BASE_DIR / "data" / "yolo_dataset"
+OUT_DIR      = ML_DIR / "data" / "yolo_dataset"
 VAL_SPLIT    = 0.2
 RANDOM_SEED  = 42
 

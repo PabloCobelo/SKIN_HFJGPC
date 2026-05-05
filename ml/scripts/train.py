@@ -2,7 +2,7 @@
 Train YOLOv8 on the prepared HAM10000 YOLO dataset.
 
 Run:
-    python scripts/train.py
+    python ml/scripts/train.py
 
 Results (weights, metrics CSVs, plots) go to results/train/
 """
@@ -10,10 +10,11 @@ Results (weights, metrics CSVs, plots) go to results/train/
 from pathlib import Path
 from ultralytics import YOLO
 
-BASE_DIR    = Path(__file__).resolve().parents[1]
-DATASET_CFG = BASE_DIR / "data" / "yolo_dataset" / "dataset.yaml"
-MODELS_DIR  = BASE_DIR / "models"
-RESULTS_DIR = BASE_DIR / "results"
+ML_DIR      = Path(__file__).resolve().parents[1]   # ml/
+ROOT_DIR    = ML_DIR.parent                          # project root
+DATASET_CFG = ML_DIR / "data" / "yolo_dataset" / "dataset.yaml"
+MODELS_DIR  = ROOT_DIR / "backend" / "models"
+RESULTS_DIR = ML_DIR / "results"
 
 # ── hyper-parameters ──────────────────────────────────────────────────────────
 MODEL_SIZE  = "yolov8n"   # nano – fastest; swap to yolov8s/m for better accuracy
