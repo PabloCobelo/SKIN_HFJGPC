@@ -12,11 +12,11 @@ router = APIRouter()
 
 @router.post("/predict", response_model=PredictionResponse)
 async def predict(file: UploadFile = File(...)):
-    if not file.content_type.startswith("image/"):
-        raise HTTPException(status_code=400, detail="File must be an image.")
-
     contents = await file.read()
-    pil_img = Image.open(io.BytesIO(contents)).convert("RGB")
+    try:
+        pil_img = Image.open(io.BytesIO(contents)).convert("RGB")
+    except Exception:
+        raise HTTPException(status_code=400, detail="File must be an image.")
     img_np = np.array(pil_img)
 
     model = ModelManager.get()
