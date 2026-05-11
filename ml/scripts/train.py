@@ -62,7 +62,7 @@ def main():
         import shutil
         dest = MODELS_DIR / "best.pt"
         shutil.copy2(best, dest)
-        print(f"\nBest weights saved → {dest}")
+        print(f"\nBest weights saved -> {dest}")
 
     print(f"\nAll results at: {results.save_dir}")
 

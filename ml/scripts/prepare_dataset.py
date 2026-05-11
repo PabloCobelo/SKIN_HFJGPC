@@ -27,6 +27,7 @@ HAM_DIR      = ML_DIR / "data" / "ham1000"
 IMG_DIRS     = [
     HAM_DIR / "HAM10000_images_part_1",
     HAM_DIR / "HAM10000_images_part_2",
+    HAM_DIR,   # fallback: imágenes sueltas en ham1000/
 ]
 SEG_DIR      = (HAM_DIR / "HAM10000_segmentations_lesion_tschandl"
                         / "HAM10000_segmentations_lesion_tschandl")
@@ -83,12 +84,12 @@ def write_yaml():
     }
     with open(OUT_DIR / "dataset.yaml", "w") as f:
         yaml.dump(cfg, f, default_flow_style=False)
-    print(f"Saved dataset.yaml → {OUT_DIR / 'dataset.yaml'}")
+    print(f"Saved dataset.yaml -> {OUT_DIR / 'dataset.yaml'}")
 
 
 def find_image(img_id: str) -> Path | None:
-    """Search for image across both part folders."""
-    for img_dir in IMG_DIRS:
+    """Search for image across all available image folders."""
+    for img_dir in [d for d in IMG_DIRS if d.exists()]:
         for ext in (".jpg", ".JPG", ".jpeg"):
             p = img_dir / f"{img_id}{ext}"
             if p.exists():
@@ -98,8 +99,8 @@ def find_image(img_id: str) -> Path | None:
 
 def main():
     assert META_CSV.exists(), f"Metadata not found: {META_CSV}"
-    for d in IMG_DIRS:
-        assert d.exists(), f"Images dir not found: {d}"
+    existing_img_dirs = [d for d in IMG_DIRS if d.exists()]
+    assert existing_img_dirs, f"No image directories found. Checked: {IMG_DIRS}"
 
     make_dirs()
     write_yaml()

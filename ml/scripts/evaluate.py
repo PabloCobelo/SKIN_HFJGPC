@@ -57,7 +57,7 @@ def collect_predictions(model, val_img_dir: Path, val_lbl_dir: Path):
             cls  = results.boxes.cls.cpu().numpy().astype(int)
             pred_cls = cls[conf.argmax()]
         else:
-            pred_cls = true_cls   # no detection → skip (or assign dummy)
+            pred_cls = true_cls   # no detection -> skip (or assign dummy)
 
         y_true.append(true_cls)
         y_pred.append(pred_cls)
@@ -74,7 +74,7 @@ def plot_confusion_matrix(y_true, y_pred, save_path: Path):
     fig.tight_layout()
     fig.savefig(save_path, dpi=150)
     plt.close(fig)
-    print(f"Saved confusion matrix → {save_path}")
+    print(f"Saved confusion matrix -> {save_path}")
 
 
 def save_metrics(y_true, y_pred, report_path: Path, csv_path: Path):
@@ -85,7 +85,7 @@ def save_metrics(y_true, y_pred, report_path: Path, csv_path: Path):
         zero_division=0,
     )
     report_path.write_text(report)
-    print(f"Saved text report → {report_path}")
+    print(f"Saved text report -> {report_path}")
 
     # per-class CSV
     report_dict = classification_report(
@@ -100,7 +100,7 @@ def save_metrics(y_true, y_pred, report_path: Path, csv_path: Path):
         for cls in CLASSES
     ]
     pd.DataFrame(rows).to_csv(csv_path, index=False)
-    print(f"Saved per-class CSV → {csv_path}")
+    print(f"Saved per-class CSV -> {csv_path}")
     print("\n" + report)
 
 
