@@ -1,10 +1,8 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../services/api_service.dart';
-import '../models/prediction.dart';
 import 'result_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,14 +23,14 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() => _loading = true);
     try {
       final api = context.read<ApiService>();
-      final result = await api.predict(File(xFile.path));
+      final result = await api.predict(xFile);
 
       if (!mounted) return;
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) => ResultScreen(
-            imageFile: File(xFile.path),
+            imageFile: xFile,
             prediction: result,
           ),
         ),

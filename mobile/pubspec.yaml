@@ -1,5 +1,5 @@
-name: skin_lesion_detector
-description: HAM10000 skin lesion detection mobile app.
+name: epidermix
+description: Detección inteligente de lesiones cutáneas con YOLOv8 y HAM10000.
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -15,6 +15,7 @@ dependencies:
   provider: ^6.1.2
   cached_network_image: ^3.3.1
   permission_handler: ^11.3.1
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
