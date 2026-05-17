@@ -2,11 +2,13 @@
 Train YOLOv8 on the prepared HAM10000 YOLO dataset.
 
 Run:
-    python ml/scripts/train.py
+    python ml/scripts/train.py            # train from scratch
+    python ml/scripts/train.py --resume  # resume from last checkpoint
 
 Results (weights, metrics CSVs, plots) go to results/train/
 """
 
+import argparse
 from pathlib import Path
 from ultralytics import YOLO
 
@@ -27,19 +29,24 @@ DEVICE      = "cpu"        # change to 0 (or "cuda:0") if GPU is available
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--resume", action="store_true",
+                        help="Resume training from results/train/weights/last.pt")
+    args = parser.parse_args()
+
     assert DATASET_CFG.exists(), f"Run prepare_dataset.py first. Not found: {DATASET_CFG}"
 
     MODELS_DIR.mkdir(exist_ok=True)
     RESULTS_DIR.mkdir(exist_ok=True)
 
-    checkpoint = RESULTS_DIR / "train" / "weights" / "last.pt"
-
-    if checkpoint.exists():
+    if args.resume:
+        checkpoint = RESULTS_DIR / "train" / "weights" / "last.pt"
+        assert checkpoint.exists(), f"No checkpoint found at {checkpoint}"
         print(f"Resuming from checkpoint: {checkpoint}")
         model = YOLO(str(checkpoint))
         results = model.train(resume=True)
     else:
-        print("Starting training from scratch…")
+        print(f"Starting training with {MODEL_SIZE} on HAM10000...")
         model = YOLO(f"{MODEL_SIZE}.pt")
         results = model.train(
             data    = str(DATASET_CFG),
