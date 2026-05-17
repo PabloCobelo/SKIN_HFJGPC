@@ -8,6 +8,8 @@
 
 # Dataset (descargar aparte ~1.5 GB)
 data/
+datasets/
+runs/
 
 # Python
 __pycache__/

@@ -29,8 +29,11 @@ IMG_DIRS     = [
     HAM_DIR / "HAM10000_images_part_2",
     HAM_DIR,   # fallback: imágenes sueltas en ham1000/
 ]
-SEG_DIR      = (HAM_DIR / "HAM10000_segmentations_lesion_tschandl"
+# Support both nested (manual download) and flat (Dataverse download) structures
+_seg_nested  = (HAM_DIR / "HAM10000_segmentations_lesion_tschandl"
                         / "HAM10000_segmentations_lesion_tschandl")
+_seg_flat    = HAM_DIR / "HAM10000_segmentations_lesion_tschandl"
+SEG_DIR      = _seg_nested if _seg_nested.exists() else _seg_flat
 META_CSV     = HAM_DIR / "HAM10000_metadata"   # no .csv extension
 OUT_DIR      = ML_DIR / "data" / "yolo_dataset"
 VAL_SPLIT    = 0.2
@@ -105,7 +108,7 @@ def main():
     make_dirs()
     write_yaml()
 
-    df = pd.read_csv(META_CSV)
+    df = pd.read_csv(META_CSV, sep=None, engine="python")  # auto-detect tab or comma
     # keep one row per image_id (some images appear multiple times due to same lesion)
     df = df.drop_duplicates(subset="image_id").reset_index(drop=True)
 

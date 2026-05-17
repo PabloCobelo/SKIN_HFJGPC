@@ -8,11 +8,16 @@ pip install -r requirements.txt
 
 ## Dataset
 
-Download from https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T
-
-Place files under `data/ham1000/` (estructura real del dataset de Harvard):
+**Option A — Automatic download** (~3.5 GB, no credentials required):
+```bash
+python ml/scripts/download_ham10000.py
 ```
-data/ham1000/
+
+**Option B — Manual download** from https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T
+
+Place files under `ml/data/ham1000/`:
+```
+ml/data/ham1000/
   HAM10000_metadata                         ← CSV sin extensión
   HAM10000_images_part_1/                   ← imágenes ISIC_*.jpg
   HAM10000_images_part_2/                   ← imágenes ISIC_*.jpg
@@ -22,22 +27,27 @@ data/ham1000/
 
 ## Workflow
 
-### 1 – Prepare dataset
+### 1 – Download dataset
 ```bash
-python scripts/prepare_dataset.py
+python ml/scripts/download_ham10000.py
 ```
 
-### 2 – Train YOLOv8
+### 2 – Prepare dataset
 ```bash
-python scripts/train.py
+python ml/scripts/prepare_dataset.py
 ```
 
-### 3 – Evaluate
+### 3 – Train YOLOv8
 ```bash
-python scripts/evaluate.py
+python ml/scripts/train.py
 ```
 
-### 4 – Desktop application
+### 4 – Evaluate
+```bash
+python ml/scripts/evaluate.py
+```
+
+### 5 – Desktop application
 ```bash
 python app/main.py
 ```
