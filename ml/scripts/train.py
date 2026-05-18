@@ -61,6 +61,7 @@ def main():
             patience= 15,
             plots   = True,
             save    = True,
+            verbose = False,
         )
 
     # copy best weights to models/
