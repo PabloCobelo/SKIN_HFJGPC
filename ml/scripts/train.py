@@ -27,7 +27,7 @@ RESULTS_DIR = ML_DIR / "results"
 
 # ── hyper-parameters ──────────────────────────────────────────────────────────
 MODEL_SIZE  = "yolov8s"   # nano – fastest; swap to yolov8s/m for better accuracy
-EPOCHS      = 50
+EPOCHS      = 150
 IMG_SIZE    = 224          # HAM10000 images are 600×450; 224 keeps training fast
 BATCH       = 128
 WORKERS     = 4
@@ -84,7 +84,7 @@ def main():
     else:
         print(f"Starting training with {MODEL_SIZE} on HAM10000...")
         model = YOLO(f"{MODEL_SIZE}.pt")
-        model.add_callback("on_train_batch_end", _make_inject_callback(_class_weights()))
+        #model.add_callback("on_train_batch_end", _make_inject_callback(_class_weights()))
         results = model.train(
             data    = str(DATASET_CFG),
             epochs  = EPOCHS,
