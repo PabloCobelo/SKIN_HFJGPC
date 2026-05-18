@@ -19,12 +19,12 @@ MODELS_DIR  = ROOT_DIR / "backend" / "models"
 RESULTS_DIR = ML_DIR / "results"
 
 # ── hyper-parameters ──────────────────────────────────────────────────────────
-MODEL_SIZE  = "yolov8n"   # nano – fastest; swap to yolov8s/m for better accuracy
+MODEL_SIZE  = "yolov8s"   # nano – fastest; swap to yolov8s/m for better accuracy
 EPOCHS      = 50
 IMG_SIZE    = 224          # HAM10000 images are 600×450; 224 keeps training fast
 BATCH       = 16
 WORKERS     = 4
-DEVICE      = "cpu"        # change to 0 (or "cuda:0") if GPU is available
+DEVICE      = 0            # RTX 4050; use "cpu" if CUDA not available
 # ─────────────────────────────────────────────────────────────────────────────
 
 
