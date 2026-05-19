@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
@@ -5,9 +6,15 @@ import 'dart:convert';
 import '../models/prediction.dart';
 
 class ApiService {
-  // 10.0.2.2 = localhost del emulador Android
-  // localhost  = desktop / web / dispositivo físico en la misma red
-  static const String _baseUrl = 'http://localhost:8000';
+  static String get _baseUrl {
+    if (kIsWeb) {
+      final uri = Uri.base;
+      final port = uri.port;
+      final portStr = (port == 80 || port == 443 || port == 0) ? '' : ':$port';
+      return '${uri.scheme}://${uri.host}$portStr';
+    }
+    return 'http://10.0.2.2:8000';
+  }
 
   Future<PredictionResponse> predict(XFile imageFile) async {
     final uri = Uri.parse('$_baseUrl/api/v1/predict');

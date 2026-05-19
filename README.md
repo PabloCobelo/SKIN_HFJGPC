@@ -1,8 +1,22 @@
 # Epidermix — Detección de Lesiones Cutáneas con YOLOv8
 
-App móvil y web que detecta 7 tipos de lesiones dermatoscópicas usando un modelo YOLOv8 entrenado sobre HAM10000.
+> Proyecto de la asignatura **Bioinformática y Medicina**  
+> Grado en Inteligencia Artificial — Universidade da Coruña  
+> Curso 2025-2026
 
-**Stack:** Flutter (móvil + web) · FastAPI · YOLOv8 · Docker
+App web que detecta 7 tipos de lesiones dermatoscópicas usando un modelo YOLOv8 entrenado sobre HAM10000.
+
+**Stack:** Flutter Web · FastAPI · YOLOv8 · Docker
+
+---
+
+## Enlaces
+
+| Recurso | Enlace |
+|---------|--------|
+| Aplicación web | *(pendiente de despliegue)* |
+| DOI Zenodo | *(pendiente — ver sección Publicación)* |
+| Presentación | *(pendiente — añadir enlace)* |
 
 ---
 
@@ -140,7 +154,7 @@ Documentación interactiva: `http://localhost:8000/docs`
 
 ---
 
-## 3 — App móvil / web (Flutter)
+## 3 — App web (Flutter)
 
 ### 3.1 Instalar dependencias
 
@@ -151,34 +165,20 @@ flutter pub get
 
 ### 3.2 Configurar la URL del backend
 
-Edita `mobile/lib/services/api_service.dart` y ajusta `_baseUrl` según tu caso:
+Edita `mobile/lib/services/api_service.dart` y ajusta `_baseUrl`:
 
 | Escenario | URL |
 |-----------|-----|
-| Emulador Android | `http://10.0.2.2:8000` *(por defecto)* |
 | Navegador web (mismo equipo) | `http://localhost:8000` |
-| Dispositivo físico / red local | `http://<IP-de-tu-máquina>:8000` |
+| Red local | `http://<IP-de-tu-máquina>:8000` |
 
-### 3.3 Ejecutar
+### 3.3 Ejecutar en el navegador
 
-**Navegador web (Edge o Chrome):**
 ```bash
 cd mobile
 flutter run -d edge
 # o
 flutter run -d chrome
-```
-
-**Emulador Android:**
-```bash
-cd mobile
-flutter run -d android
-```
-
-**Dispositivo físico:**
-```bash
-flutter devices          # ver IDs disponibles
-flutter run -d <device-id>
 ```
 
 ---
@@ -190,6 +190,18 @@ flutter run -d <device-id>
 3. Pulsa el botón de cámara o galería y selecciona una imagen dermatoscópica.
 4. La app envía la imagen al backend y muestra las detecciones con bounding boxes y un panel de información clínica.
 5. Si la lesión detectada es de riesgo alto (melanoma, carcinoma basocelular o queratosis actínica), aparece un botón para solicitar cita en el SERGAS.
+
+---
+
+## Publicación en Zenodo
+
+Para obtener el DOI permanente del proyecto:
+
+1. Ve a [zenodo.org](https://zenodo.org) e inicia sesión con tu cuenta GitHub.
+2. En **Settings → GitHub**, activa el repositorio `SKIN_HFJGPC`.
+3. En GitHub, crea un **Release** (etiqueta `v1.0.0`) desde la página del repositorio → *Releases → Draft a new release*.
+4. Zenodo captura el release automáticamente y genera el DOI en pocos minutos.
+5. Copia el DOI (formato `10.5281/zenodo.XXXXXXX`) y actualiza la tabla de enlaces de arriba.
 
 ---
 
